@@ -8,19 +8,15 @@ import { RegisterRoutes } from './routes/routes';
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mocafi'; // Replace with your MongoDB connection string
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mocafi';
 
-// Middleware
-app.use(express.json()); // For parsing application/json
-app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '../public')));
 
-// Serve static files (HTML, CSS, client-side JS)
-app.use(express.static(path.join(__dirname, '../public'))); // Serve files from public directory
-
-// tsoa routes
 RegisterRoutes(app);
 
-// Swagger UI for API Documentation
+// Swagger
 try {
     const swaggerFilePath = path.join(__dirname, '../public/swagger.yaml');
     const swaggerFile = fs.readFileSync(swaggerFilePath, 'utf8');
@@ -32,11 +28,10 @@ try {
 }
 
 
-// Global Error Handler (Example - customize as needed)
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error(err.stack);
     const statusCode = err.statusCode || 500;
-    const message = err.message || 'Internal Server Error';
+    const message = err.message || 'Server Error';
     res.status(statusCode).json({
         status: 'error',
         statusCode,
@@ -45,7 +40,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 
-// Connect to MongoDB and Start Server
+// mongo start
 mongoose.connect(MONGODB_URI)
   .then(() => {
       console.log('Successfully connected to MongoDB');
