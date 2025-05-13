@@ -1,0 +1,32 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card-container {
+    width: 400px;
+    padding: 0;
+    padding-top: 10%;
+}
+
+.card-title {
+    font-weight: 500;
+    margin-bottom: 20px !important;
+}
+
+.card-content {
+    padding: 24px !important;
+}
+
+.btn {
+    margin-top: 20px;
+    width: 100%;
+}

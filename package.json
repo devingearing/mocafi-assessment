@@ -1,0 +1,40 @@
+{
+  "name": "mocafi_assessment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "npm run tsoa:gen",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"npm run tsoa:watch\" \"npm run start:dev\"",
+    "start:dev": "nodemon dist/index.js",
+    "tsoa:gen": "tsoa spec-and-routes",
+    "tsoa:watch": "nodemon --watch 'src/**/*.ts' --exec 'npm run tsoa:gen'",
+    "build:run": "npm run build && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/swagger-ui-express": "^4.1.8",
+    "express": "^5.1.0",
+    "jquery": "^3.7.1",
+    "js-yaml": "^4.1.0",
+    "mongoose": "^8.14.2",
+    "swagger-ui-express": "^5.0.1",
+    "tsoa": "^6.6.0"
+  },
+  "devDependencies": {
+    "@tsoa/cli": "^6.6.0",
+    "@types/express": "^5.0.1",
+    "@types/jquery": "^3.5.32",
+    "@types/js-yaml": "^4.0.9",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^22.15.17",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,144 @@
+openapi: 3.0.0
+components:
+  examples: {}
+  headers: {}
+  parameters: {}
+  requestBodies: {}
+  responses: {}
+  schemas:
+    UserDetailType:
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+        countryCode:
+          type: string
+      required:
+        - firstName
+        - lastName
+        - phone
+      type: object
+      additionalProperties: false
+    AccountBaseType:
+      properties:
+        cardNumber:
+          type: string
+        expiration:
+          type: string
+        pin:
+          type: string
+        balance:
+          type: number
+          format: double
+      required:
+        - cardNumber
+        - expiration
+        - pin
+        - balance
+      type: object
+      additionalProperties: false
+    UserReturn:
+      properties:
+        user:
+          $ref: "#/components/schemas/UserDetailType"
+        account:
+          $ref: "#/components/schemas/AccountBaseType"
+        _id:
+          type: string
+      required:
+        - user
+        - _id
+      type: object
+      additionalProperties: false
+    UserCreateParams:
+      properties:
+        user:
+          $ref: "#/components/schemas/UserDetailType"
+        account:
+          $ref: "#/components/schemas/AccountBaseType"
+      required:
+        - user
+      type: object
+      additionalProperties: false
+    BalanceReturn:
+      properties:
+        success:
+          type: boolean
+        balance:
+          type: number
+          format: double
+        message:
+          type: string
+      required:
+        - success
+      type: object
+      additionalProperties: false
+  securitySchemes: {}
+info:
+  title: My TSOA App
+  version: 1.0.0
+  description: API documentation for My TSOA App
+paths:
+  /users:
+    get:
+      operationId: GetAllUsers
+      responses:
+        "200":
+          description: Retrieved All Users
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/UserReturn"
+                type: array
+      tags:
+        - User Endpoints
+      security: []
+      parameters: []
+  /users/create:
+    post:
+      operationId: CreateUser
+      responses:
+        "201":
+          description: Created User
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/UserReturn"
+                nullable: true
+      tags:
+        - User Endpoints
+      security: []
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateParams"
+  /users/balance:
+    get:
+      operationId: GetUserBalance
+      responses:
+        "200":
+          description: Retrieved User Balance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BalanceReturn"
+      tags:
+        - User Endpoints
+      security: []
+      parameters:
+        - in: query
+          name: cardNumber
+          required: true
+          schema:
+            type: string
+servers:
+  - url: http://localhost:3000
+    description: Development server

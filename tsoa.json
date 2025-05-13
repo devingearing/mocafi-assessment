@@ -1,0 +1,28 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/controllers/**/*.ts"],
+  "spec": {
+    "outputDirectory": "public",
+    "specVersion": 3,
+    "yaml": true,
+    "spec": {
+      "openapi": "3.0.0",
+      "info": {
+        "title": "My TSOA App",
+        "version": "1.0.0",
+        "description": "API documentation for My TSOA App"
+      },
+      "servers": [
+        {
+          "url": "http://localhost:3000",
+          "description": "Development server"
+        }
+      ]
+    }
+  },
+  "routes": {
+    "routesDir": "src/routes",
+    "basePath": "/"
+  }
+}
