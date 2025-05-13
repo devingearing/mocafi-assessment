@@ -2,10 +2,13 @@
 
 A TypeScript-based Express API using TSOA for API documentation and MongoDB for data storage. This project implements a user management system with credit card balance checking functionality.
 
+    
+    Once built go to the endpoint 'http://localhost:3000/docs' for the TSOA endpoints
+
 ## Features
 
 - RESTful API built with Express and TypeScript
-- TSOA implementation for route generation and API documentation
+- TSOA implementation for route generation and API documentation 
 - Swagger UI for interactive API exploration
 - MongoDB integration with Mongoose
 - Material Design UI for the frontend
